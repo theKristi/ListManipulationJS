@@ -1,12 +1,19 @@
-﻿//This class does all the talking to the view and is jquery dependant
-var TableView = function () {
+/*Refactor Goals: 
+-Ditch TableSorterSetup using data attributes 
+-Update To make pager more flexible
+-Ditch Jquery by default, use Data-attributes
+-make data-attributes user-setable
+-keep json data integrity
+-add OnEvent function holders for Sort, Search, Select, and submit
+*/
+var TableView = function (HtmlTable) {
     this.list = new List();
+	this.tableElement=HtmlTable;
     this.pages = [];
     this.displayed = [];
     this.sortIconAscending = '';
     this.sortIconDesscending = '';
     this.displayedSortedOn = '';
-    this.rowSelector = '';
     this.tableBodySelector = '';
     this.tableSelector = '';
     this.pagerUISelector = '';
@@ -22,8 +29,8 @@ var TableView = function () {
 }
 
 TableView.prototype.createList = function() {
-    if (this.rowSelector !== '' && this.rowSelector !== null && this.rowSelector !== undefined) {
-        this.list.createFromHtml($(this.rowSelector));
+    if (this.tableElement!==null) {
+        this.list.createFromHtml(this.tableElement);
         this.displayed = this.list.getList();
         this.displayedSortedOn = undefined;
     }
@@ -32,9 +39,14 @@ TableView.prototype.createList = function() {
 TableView.prototype.buildTable = function(filteredlist) {
     if (filteredlist === undefined)
         filteredlist = this.list.getList();
-    $(this.rowSelector + ":not(:first)").remove();
+		 var tbody = this.tableElement.tBodies[0];
+		  if (tbody) {
+        while (tbody.lastChild) {
+            tbody.removeChild(tbody.lastChild);
+        }
+    }
     for (var i = 0; i < filteredlist.length; i++) {
-        $(this.tableBodySelector).append(filteredlist[i].html);
+        tbody.appendChild(filteredlist[i].html);
         
     }
     this.setUpHighlightRow();
