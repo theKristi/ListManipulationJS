@@ -19,14 +19,15 @@ var List = function(list) {
 
 List.prototype.createFromHtml = function(tableSelected) {
     //pull off properties into array
-    if (tableSelected && tableSelected.length > 0) {
-        var properties = this.getHeadersFromHtml(tableSelected[0].children);
+    if (tableSelected && tableSelected.children.length > 0) {
+		var tbody=tableSelected.tBodies[0];
+        var properties = this.getHeadersFromHtml(tableSelected.tHead);
 
         //for each row in collection
-        for (var i = 1; i < tableSelected.length; i++) {
-            var rowparent = tableSelected[i];
+        for (var i = 0; i < tbody.rows.length; i++) {
+            var rowparent = tbody.rows[i];
             var newObject = this.emptyObject(properties);
-            newObject.html = rowparent.outerHTML;
+            newObject.html = rowparent.innerHTML;
             var row = rowparent.children;
 
             for (var cell = 0; cell < row.length; cell++) {
@@ -203,8 +204,9 @@ List.prototype.emptyObject = function(headers) {
 };
 
 List.prototype.getHeadersFromHtml = function(headerRow) {
+if(headerRow.localName=="thead")
+	headerRow=headerRow.children[0].cells;
 
-    // var headerRow = htmlCollection[0].children;
 
     var headers = [];
     for (var entry in headerRow) {
