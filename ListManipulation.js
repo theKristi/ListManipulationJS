@@ -5,6 +5,7 @@ var List = function(list) {
     this.setList = function(list) {
         if (this.isListValid(list)) {
             _list = list;
+			
         } else
             throw "Invalid list: call getValidationErrors(list) for details";
     }
@@ -27,7 +28,7 @@ List.prototype.createFromHtml = function(tableSelected) {
         for (var i = 0; i < tbody.rows.length; i++) {
             var rowparent = tbody.rows[i];
             var newObject = this.emptyObject(properties);
-            newObject.html = rowparent.innerHTML;
+            
             var row = rowparent.children;
 
             for (var cell = 0; cell < row.length; cell++) {
@@ -57,7 +58,7 @@ List.prototype.createFromHtml = function(tableSelected) {
                     }
                 }
             }
-
+			newObject.html = rowparent;
             this.getList().push(newObject);
 
         }
@@ -86,14 +87,16 @@ List.prototype.sort = function (sublist, attrName, asc) {
     return sublist;
 };
 
-List.prototype.search = function(attributes, target) {
+List.prototype.search = function(target, attributes) {
    
     var filteredList = [];
+	var wholeList=this.getList();
 
     if (attributes === undefined||attributes==null) {
-        attributes = Object.getOwnPropertyNames(this.getList()[0]);
+        attributes = Object.getOwnPropertyNames(wholeList[0]);
+		
     } else {
-        var listAttributes = Object.getOwnPropertyNames(this.getList()[0]);
+        var listAttributes = Object.getOwnPropertyNames(wholeList[0]);
         attributes.forEach(function(attr) {
             var res = 0;
             if (listAttributes.indexOf(attr) <= -1)
@@ -103,9 +106,10 @@ List.prototype.search = function(attributes, target) {
     }
     if (target !== undefined && target !== null) {
         target = target.toLowerCase();
-        filteredList =this.getList().filter(function(object) {
+        filteredList =wholeList.filter(function(object) {
             //check for attributes which contain target
             for (var attr in attributes) {
+				
                 attributes[attr]=attributes[attr].trim();
                 var searchString = object[attributes[attr]].toString();
                 if (typeof searchString === 'string') {
