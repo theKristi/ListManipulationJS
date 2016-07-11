@@ -36,7 +36,7 @@ TableView.prototype.Sort = function(attr) {
 	if(this.asc)
 		AddClassesFromAttribute(attr.target,attr.target.children.icon, "data-sort-icon-asc");
 	else{
-		AddClassesFromAttribute(attr,attr, "data-sort-icon-desc");
+		AddClassesFromAttribute(attr.target,attr.target.children.icon, "data-sort-icon-desc");
 	}
 
     var displayed = this.list.sort(this.displayed, attr.currentTarget.innerText, this.asc);
