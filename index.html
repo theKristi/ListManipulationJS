@@ -34,17 +34,17 @@
         <div id="tableWrapper" class="col-md-6">
         <table id="tester" class="table table-bordered" data-sort-table data-select-table data-highlight-class="highlight">
         <thead>
-        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon">First Name<span id="icon"></span></th>
-        	<th data-sort-on data-sort-icon-desc="glyphicon-chevron-up glyphicon sort-icon">Last Name <span id="icon"></span></th>
+        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-desc="glyphicon-chevron-up glyphicon sort-icon">First Name<span id="icon"></span></th>
+        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-desc="glyphicon-chevron-up glyphicon sort-icon">Last Name <span id="icon"></span></th>
         </thead>
         <tbody>
         	<tr>
-        	<td>Darth</td>
-        	<td>Vader</td>
+        	<td>Fred</td>
+        	<td>Weasley</td>
         	</tr>
         	<tr>
-        	<td>Luke</td>
-        	<td>Skywalker</td>
+        	<td>George</td>
+        	<td>Weasley</td>
         	</tr>
 			<tr>
         	<td>Harry</td>
@@ -53,18 +53,118 @@
 			<tr>
         	<td>Tom</td>
         	<td>Riddle</td>
+			</tr>
 			<tr>
         	<td>Albus</td>
         	<td>Dumbledore</td>
+			</tr>
 			<tr>
-        	<td>Bilius</td>
+        	<td>Ronald</td>
         	<td>Weasley</td>
         	</tr>
+			<tr>
+        	<td>Ginny</td>
+        	<td>Weasley</td>
         	</tr>
+			<tr>
+        	<td>Bill</td>
+        	<td>Weasley</td>
+        	</tr>
+			<tr>
+        	<td>Charlie</td>
+        	<td>Weasley</td>
+        	</tr>
+			<tr>
+        	<td>Hermione</td>
+        	<td>Granger</td>
+        	</tr>
+			<tr>
+        	<td>Hagrid</td>
+        	<td>Giant</td>
+        	</tr>
+        	<tr>
+        	<td>Draco</td>
+        	<td>Malfoy</td>
+        	</tr>
+			<tr>
+        	<td>Severus</td>
+        	<td>Snape</td>
+        	</tr>
+			<tr>
+        	<td>Minerva</td>
+        	<td>McGonagall</td>
+        	</tr>
+			<tr>
+        	<td>Philius</td>
+        	<td>Flitwick</td>
+        	</tr>
+			<tr>
+        	<td>Pamona</td>
+        	<td>Sprout</td>
+        	</tr>
+			<tr>
+        	<td>Sybill</td>
+        	<td>Trelawny</td>
+        	</tr>
+			<tr>
+        	<td>Horace</td>
+        	<td>Slughorn</td>
+        	</tr>
+			<tr>
+        	<td>Neville</td>
+        	<td>Longbottom</td>
+        	</tr>
+			<tr>
+        	<td>Dean</td>
+        	<td>Thomas</td>
+        	</tr>
+			<tr>
+        	<td>Seamus</td>
+        	<td>Finnegan</td>
+        	</tr>
+			<tr>
+        	<td>Lee</td>
+        	<td>Jordan</td>
+        	</tr>
+			<tr>
+        	<td>Alicia</td>
+        	<td>Spinnet</td>
+        	</tr>
+			<tr>
+        	<td>Angelina</td>
+        	<td>Johnson</td>
+        	</tr>
+			<tr>
+        	<td>Katie</td>
+        	<td>Bell</td>
+        	</tr>
+			<tr>
+        	<td>Percy</td>
+        	<td>Weasley</td>
         	</tr>
         </tbody>
 
         </table>
+		 <div class="pagerContainer">
+                <div class="pager pagination"
+                     data-pager-for="tester"
+                     data-active-page-class="active"
+                     data-max-displayed-pages="5">
+                    <div hidden data-pager-template>
+                        <li>
+                            <a>{pagenum}</a>
+                        </li>
+                    </div>
+                </div>
+                <div class="pull-right" style="margin-right: 20px;">
+                    <label>Max Clients Displayed</label>
+                    <select style="height: 37px;" data-items-per-page-for="tester">
+                        <option value="5">5</option>
+                        <option value="10" selected="selected">10</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+            </div>
 		</div>        	
         
         </div>

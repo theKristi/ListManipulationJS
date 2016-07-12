@@ -126,7 +126,7 @@ List.prototype.search = function(target, attributes) {
 
 };
 
-List.prototype.toPages = function(sublist, entriesPerPage) {
+List.prototype.toPages = function(entriesPerPage, sublist) {
     if (sublist === undefined || sublist === null)
         sublist = this.getList();
     var pages = [];
