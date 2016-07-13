@@ -20,6 +20,7 @@
 		this.currentPage=0;
 		this.goToPage=function(page){
 			if(this.pages){
+				this.currentPage=page;
 				this.buildTable(this.pages[page]);
 			}
 		}
@@ -43,11 +44,10 @@ TableView.prototype.buildTable = function(filteredlist) {
     }
 
 }
-TableView.prototype.SetCurrentPage = function (pageNum) {
-    this.currentPage = pageNum;
-    this.UpdateTable();
+TableView.prototype.update=function(newList){
+	this.buildTable(newList);
+	this.buildPager();
 }
-
 
 TableView.prototype.Sort = function(attr) {
     if (this.displayedSortedOn === attr.currentTarget.innerText)
@@ -70,7 +70,7 @@ TableView.prototype.Sort = function(attr) {
 
     var sorted = this.list.sort(this.displayed, attr.currentTarget.innerText, this.asc);
     this.displayedSortedOn = attr.currentTarget.innerText;
-    this.buildTable(sorted);
+    this.update(sorted);
   
    
 }
@@ -79,8 +79,11 @@ TableView.prototype.Search=function(){
 	 this.searchFilter = this.searchElement.value;
 	 var properties=this.list.getHeadersFromHtml(this.tableElement.tHead)
 	 var filteredList=this.list.search(this.searchFilter,properties)
-	 this.displayed=filteredList;
-	 this.updateTable(filteredList);
+	 if(this.displayedSortedOn)
+	 this.displayed=this.list.sort(filteredList, this.displayedSortedOn);
+	else
+		this.displayed=filteredList;
+	 this.update(this.displayed);
 }
 
 TableView.prototype.HighlightRow = function (event) {
