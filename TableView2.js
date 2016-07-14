@@ -114,12 +114,10 @@ TableView.prototype.buildPager=function(){
         template.innerHTML = this.pagerTemplate.replace(new RegExp("{pagenum}", "gi"), i);
         this.pagerElement.appendChild(template.children[0]);
         this.pagerElement.lastChild.addEventListener("click", function (event) {
-			var pageDivs=this.parentNode.children
-			for(var i=0;i<pageDivs.length;i++){
-			self.RemoveClassesFromAttribute(self.pagerElement,pageDivs[i],"data-active-page-class")
-			}
+			
             self.goToPage(this.innerText - 1);
-			self.AddClassesFromAttribute(self.pagerElement, this,"data-active-page-class")
+			self.buildPager();
+			
         }, false);
 
         if (i - 1 === this.currentPage) {
