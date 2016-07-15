@@ -105,18 +105,21 @@ List.prototype.search = function(target, attributes) {
         });
     }
     if (target !== undefined && target !== null) {
+		if(typeof target=='string')
         target = target.toLowerCase();
         filteredList =wholeList.filter(function(object) {
             //check for attributes which contain target
             for (var attr in attributes) {
 				
                 attributes[attr]=attributes[attr].trim();
-                var searchString = object[attributes[attr]].toString();
+                var searchString = object[attributes[attr]]
                 if (typeof searchString === 'string') {
                     searchString = searchString.toLowerCase();
                     if (searchString.indexOf(target) > -1)
                         return true;
                 }
+				if(typeof searchString=='object')
+					return searchString==target;
             }
             return false;
         });

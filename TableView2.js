@@ -27,6 +27,7 @@
 		this.buildPager();
 		
     }
+	
 }
 
 TableView.prototype.buildTable = function(filteredlist) {
@@ -71,6 +72,8 @@ TableView.prototype.Sort = function(attr) {
     var sorted = this.list.sort(this.displayed, attr.currentTarget.innerText, this.asc);
     this.displayedSortedOn = attr.currentTarget.innerText;
     this.update(sorted);
+	var sortedEvent=new CustomEvent("sorted",{'detail': this.displayedSortedOn});
+	this.tableElement.dispatchEvent(sortedEvent);
   
    
 }
@@ -88,12 +91,18 @@ TableView.prototype.Search=function(){
 
 TableView.prototype.HighlightRow = function (event) {
     var element = event.currentTarget;
-
+	var clickedRecord=this.list.search(element,["html"])[0]
+	var recordClickedEvent;
     if (element.classList.contains(this.highlightClass)) {
-        element.classList.remove(this.highlightClass);
+        recordClickedEvent=new CustomEvent("select",{'detail':{"action":'Deselect', 'record':clickedRecord}} )
+		element.classList.remove(this.highlightClass);
+		
     } else {
+		recordClickedEvent=new CustomEvent("select",{'detail':{"action":'Select', 'record':clickedRecord}} )
         element.classList.add(this.highlightClass);
+		
     }
+	this.tableElement.dispatchEvent(recordClickedEvent);
 }
 
 TableView.prototype.buildPager=function(){
@@ -232,10 +241,10 @@ TableView.prototype.CalculatePageRange = function () {
         };
     }
 }
-
+var tableViews;
 document.addEventListener("DOMContentLoaded", function(event) { 
   //do work
-    var tableViews = [];
+     tableViews = [];
     var tables = document.querySelectorAll("[data-sort-table]");
     for (var i = 0; i < tables.length; i++) {
         tableViews.push(new TableView(tables[i]));

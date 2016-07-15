@@ -11,6 +11,8 @@
   
    <script type="text/javascript" src="ListManipulation.js"></script>
    <script type="text/javascript" src="TableView2.js"></script>    
+   <script type="text/javascript" src="jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="outsideListeners.js"></script>    
    <div>
      <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
@@ -31,6 +33,7 @@
 		<div>
 		<input type="text" placeholder="Search" data-search-bar-for="tester" class="input-lg"></input>
 		</div>
+		<div id="sortLabel"></div>
         <div id="tableWrapper" class="col-md-6">
         <table id="tester" class="table table-bordered" data-sort-table data-select-table data-highlight-class="highlight">
         <thead>
@@ -297,7 +300,7 @@
         </tbody>
 
         </table>
-		 <div class="pagerContainer">
+		<div class="pagerContainer">
                 <div class="pager pagination"
                      data-pager-for="tester"
                      data-active-page-class="active"
@@ -316,9 +319,22 @@
                         <option value="25">25</option>
                     </select>
                 </div>
-            </div>
-		</div>        	
+            </div>		
         
-        </div>
+        </div> 
+		</div>
+		<div class="col-md-6">
+		
+		 <table id="selectedRecords" class="table table-bordered" data-sort-table>
+			<thead>
+			<th>Index</th>
+        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-desc="glyphicon-chevron-up glyphicon sort-icon">First Name<span id="icon"></span></th>
+        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-desc="glyphicon-chevron-up glyphicon sort-icon">Last Name <span id="icon"></span></th>
+        </thead>
+		<tbody>
+		</tbody>
+		 </table>
+		</div>
+
 </body>
 </html>
