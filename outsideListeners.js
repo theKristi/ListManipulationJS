@@ -8,7 +8,7 @@ $("#tester").on("select", function(e){
 	$("#selectedRecords").append(jQueryRecord);
 	else{
 		//get row index
-
+	console.log("Testing 123");
 	}
 })
 })
