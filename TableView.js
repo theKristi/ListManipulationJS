@@ -2,6 +2,7 @@
 	this.list=new List();
 	this.tableElement=tableElement;
 	this.sortOnElements=this.tableElement.querySelectorAll("[data-sort-on]");
+	this.SetSortIcons();
 	this.searchElement = document.querySelectorAll("[data-search-bar-for=" + this.tableElement.id + "]")[0];
 	var submitSearch=document.querySelectorAll("[data-submit-search-bar-for=" + this.tableElement.id + "]")
 	if(submitSearch.length>0)
@@ -11,7 +12,7 @@
 	this.list.createFromHtml(this.tableElement);
 	this.displayed = this.list.getList();
 	this.displayedSortedOn = undefined;
-	this.SetUpEventListeners();
+	
 	var pagerElement = document.querySelectorAll("[data-pager-for=" + this.tableElement.id + "]")[0];
     if (pagerElement) 
 	{
@@ -22,14 +23,39 @@
 			if(this.pages){
 				this.currentPage=page;
 				this.buildTable(this.pages[page]);
+				this.SetUpEventListeners();
 			}
 		}
 		this.buildPager();
 		
     }
+	this.SetUpEventListeners();
 	
 }
+TableView.prototype.SetSortIcons = function () {
+    var headElements = this.sortOnElements;
 
+    for (var i = 0; i < headElements.length; i++) {
+        var elem = headElements[i];
+        if (elem === this.currentSortElement) {
+            if (this.asc) {
+                elem.children[0].removeAttribute("class");
+                this.AddClassesFromAttribute(elem, elem.children[0], "data-sort-icon-asc");
+                this.AddClassesFromAttribute(elem, elem.children[0], "data-active-sort-classes");
+            } else {
+                elem.children[0].removeAttribute("class");
+                
+                this.AddClassesFromAttribute(elem, elem.children[0], "data-sort-icon-desc");
+                this.AddClassesFromAttribute(elem, elem.children[0], "data-active-sort-classes");
+            }
+            this.AddClassesFromAttribute(elem, elem, "data-active-sort-classes");
+        } else { //not current sort element, set to asc icon
+            elem.children[0].removeAttribute("class");
+            this.AddClassesFromAttribute(elem, elem.children[0], "data-sort-icon-asc");
+            this.RemoveClassesFromAttribute(elem, elem, "data-active-sort-classes");
+        }
+    }
+}
 TableView.prototype.buildTable = function(filteredlist) {
     if (filteredlist === undefined)
         filteredlist = this.list.getList();
@@ -48,6 +74,7 @@ TableView.prototype.buildTable = function(filteredlist) {
 TableView.prototype.update=function(newList){
 	this.buildTable(newList);
 	this.buildPager();
+	this.SetUpEventListeners();
 }
 
 TableView.prototype.Sort = function(attr) {
@@ -57,22 +84,14 @@ TableView.prototype.Sort = function(attr) {
 	{
         this.asc = true;
     }
-	this.clearIconsFromHeaders(attr.currentTarget)
-	if(this.asc)
-	{
-		this.RemoveClassesFromAttribute(attr.target, attr.target.children.icon,"data-sort-icon-desc")
-		this.AddClassesFromAttribute(attr.target,attr.target.children.icon, "data-sort-icon-asc");
-	}
-	else
-	{
-		this.RemoveClassesFromAttribute(attr.target, attr.target.children.icon,"data-sort-icon-asc")
-		this.AddClassesFromAttribute(attr.target,attr.target.children.icon, "data-sort-icon-desc");
-	}
+
+	this.currentSortElement=attr.currentTarget;
+	this.SetSortIcons();
 
     var sorted = this.list.sort(this.displayed, attr.currentTarget.innerText, this.asc);
     this.displayedSortedOn = attr.currentTarget.innerText;
     this.update(sorted);
-	var sortedEvent=new CustomEvent("sorted",{'detail': this.displayedSortedOn});
+	var sortedEvent=new CustomEvent("sorted",{ 'detail': {'attribute': this.displayedSortedOn, 'ascending':this.asc, "element":attr.currentTarget }});
 	this.tableElement.dispatchEvent(sortedEvent);
   
    
@@ -89,7 +108,7 @@ TableView.prototype.Search=function(){
 	 this.update(this.displayed);
 }
 
-TableView.prototype.HighlightRow = function (event) {
+TableView.prototype.SelectRow = function (event) {
     var element = event.currentTarget;
 	var clickedRecord=this.list.search(element,["html"])[0]
 	var recordClickedEvent;
@@ -146,7 +165,8 @@ TableView.prototype.setUpPagerAttributes=function(){
     this.itemsPerPageElement = document.querySelectorAll("[data-items-per-page-for=" + this.tableElement.id + "]")[0];
     if (this.itemsPerPageElement) 
 	{
-        this.itemsPerPage = ~~this.itemsPerPageElement.value;
+        this.itemsPerPage = ~~this.itemsPerPageElement.value
+		
     }
 	else 
 	{
@@ -160,11 +180,15 @@ TableView.prototype.SetUpEventListeners = function () {
     if (this.sortOnElements) {
         for (var j = 0; j < this.sortOnElements.length; j++) {
             // Handler for when the table headers are clicked, triggering the table to sort.
-            this.sortOnElements[j].addEventListener("click", function (event) { self.Sort(event); }, false);
+            this.sortOnElements[j].addEventListener("click", function (event) { event.stopImmediatePropagation();
+			self.Sort(event); }, false);
         }
     }
 	if (this.searchElement&&!this.submitSearch) {
-        this.searchElement.addEventListener("keyup", function () { self.Search(); }, false);
+        this.searchElement.addEventListener("keyup", function (event) { 
+		event.stopImmediatePropagation();
+		self.Search();
+		}, false);
     }
 	if (this.searchElement&&this.submitSearch) {
 		
@@ -177,8 +201,18 @@ TableView.prototype.SetUpEventListeners = function () {
 		var rows=this.tableElement.tBodies[0].rows;
 		for (var i = 0; i < rows.length; i++) {
             //Handler for when a row is selected
-            rows[i].addEventListener("click", function (event) { self.HighlightRow(event); }, false);
+            rows[i].addEventListener("click", function (event) {
+				event.stopImmediatePropagation();
+				self.SelectRow(event); }, false);
 	}
+	if (this.itemsPerPageElement) 
+	{
+		this.itemsPerPageElement.addEventListener("change", function(event){
+			self.itemsPerPage = ~~event.srcElement.options[event.srcElement.selectedIndex].value
+			self.update(self.displayed);
+			
+		})
+    }
 	}
 }
 
@@ -207,14 +241,8 @@ TableView.prototype.RemoveChildren=function(element){
         }
     }
 }
-//Non-generic
-TableView.prototype.clearIconsFromHeaders=function(header){
-	var headers=header.parentElement.children;
-	for(var h=0; h<headers.length; h++){
-		this.RemoveClassesFromAttribute(headers[h], headers[h].children.icon,"data-sort-icon-asc")
-		this.RemoveClassesFromAttribute(headers[h], headers[h].children.icon,"data-sort-icon-desc")
-	}
-}
+
+
 TableView.prototype.CalculatePageRange = function () {
 	var last=this.pages.length;
 	var range=this.maxDisplayedPages;
