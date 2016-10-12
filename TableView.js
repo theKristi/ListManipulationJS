@@ -215,6 +215,22 @@ TableView.prototype.SetUpEventListeners = function () {
     }
 	}
 }
+/*TableView.prototype.BuildAndSubmitForm = function (event) {
+    var button = event.currentTarget;
+    var form = document.getElementById(button.getAttribute("data-form"));
+
+    var rows = this.GetSelectedRows();
+
+    for (var i = 0; i < rows.length; i++) {
+        var elems = this.RowToInputElements(rows[i], i);
+
+        for (var j = 0; j < elems.length; j++) {
+            form.appendChild(elems[j]);
+        }
+    }
+
+    this.submitRowsForm.submit();
+}*/
 
 TableView.prototype.AddClassesFromAttribute = function (element, elementToAddClassTo, attrName) {
     if (element.hasAttribute(attrName)) {
