@@ -11,13 +11,30 @@ $(e.detail.element.children.icon).addClass(icon);
 var active=e.detail.element.getAttribute("data-active-sort-classes");
 $(e.detail.element).addClass(active).siblings().removeClass(active);*/
 });
-$("#tester").on("select", function(e){
+var SelectedRecords=[];
+$("#tester").on("Select", function(e){
 	
 	if(e.detail.action==="Select")
-	console.log("select")
+	SelectedRecords.push(e.detail.record)
 	else{
-		//get row index
-	console.log("Testing 123");
+		var map=SelectedRecords.map(function (element, index, array){
+			//compare element and e.detail.record
+			var props=Object.getOwnPropertyNames(element);
+			var equal=true;
+			for(var i=0;i<props.length;i++)
+			{
+				if (element[props[i]]!==e.detail.record[props[i]])
+				{
+					equal=false;
+				}
+			}
+			return equal;
+		});
+		var index=map.indexOf(true)
+		SelectedRecords.splice(index,1);
+		
 	}
-})
+	$(".selectLabel").text("("+SelectedRecords.length+")");
+});
+
 })

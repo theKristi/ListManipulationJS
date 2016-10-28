@@ -46,6 +46,9 @@ List.prototype.createFromHtml = function(tableSelected) {
                             if (childClassName === "check-box")
                                 newObject[properties[cell]] = row[cell].children[0].checked;
                             break;
+                            case "SPAN":
+                                newObject[properties[cell]] = row[cell].innerText.trim();
+                           break;
                         default:
                             newObject[properties[cell]] = row[cell].children[0].innerText.trim();
                             break;
@@ -112,14 +115,14 @@ List.prototype.search = function(target, attributes) {
             for (var attr in attributes) {
 				
                 attributes[attr]=attributes[attr].trim();
-                var searchString = object[attributes[attr]]
+                var searchString = object[attributes[attr]];
                 if (typeof searchString === 'string') {
                     searchString = searchString.toLowerCase();
                     if (searchString.indexOf(target) > -1)
                         return true;
                 }
 				if(typeof searchString=='object')
-					return searchString==target;
+					return searchString===target;
             }
             return false;
         });
