@@ -97,7 +97,7 @@ TableView.prototype.Sort = function (attr) {
     this.displayedSortedOn = attr.currentTarget.innerText;
     this.update(sorted);
     var sortedEvent = document.createEvent("CustomEvent");
-    sortedEvent.initCustomEvent("sorted", true, true, { 'detail': { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget } });
+    sortedEvent.initCustomEvent("sorted", true, true,  { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget });
     //var sortedEvent = new CustomEvent("sorted", { 'detail': { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget } });
     this.tableElement.dispatchEvent(sortedEvent);
 
