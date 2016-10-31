@@ -109,7 +109,7 @@ TableView.prototype.Search = function () {
     var properties = this.list.getHeadersFromHtml(this.tableElement.tHead)
     var filteredList = this.list.search(this.searchFilter, properties)
     if (this.displayedSortedOn)
-        this.displayed = this.list.sort(filteredList, this.displayedSortedOn);
+        this.displayed = this.list.sort(filteredList, this.displayedSortedOn,this.asc);
     else
         this.displayed = filteredList;
     this.update(this.displayed);
