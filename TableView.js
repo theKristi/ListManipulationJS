@@ -188,6 +188,7 @@ TableView.prototype.buildPager = function () {
         }
 
     }
+	self.itemsPerPageElement.value=localStorage.getItem("itemsPerPage")
     self.goToPage(this.currentPage);
 
 }
@@ -198,12 +199,20 @@ TableView.prototype.setUpPagerAttributes = function () {
     this.maxDisplayedPages = ~~this.pagerElement.getAttribute("data-max-displayed-pages");
     this.itemsPerPageElement = document.querySelectorAll("[data-items-per-page-for=" + this.tableElement.id + "]")[0];
     if (this.itemsPerPageElement) {
-        this.itemsPerPage = ~~this.itemsPerPageElement.value;
+		if(localStorage.getItem("itemsPerPage")===null){
+        this.itemsPerPage = this.itemsPerPageElement.value;
+		localStorage.setItem("itemsPerPage", this.itemsPerPage)
+		}
+	else
+		
+		this.itemsPerPage=~~localStorage.getItem("itemsPerPage")
+		this.itemsPerPageElement.value=this.itemsPerPage;
 
     }
     else {
         this.itemsPerPage = 5;
     }
+	
 }
 
 TableView.prototype.SetUpEventListeners = function() {
@@ -246,6 +255,7 @@ TableView.prototype.SetUpEventListeners = function() {
         this.itemsPerPageElement.addEventListener("change", function (event) {
             event.stopImmediatePropagation();
                 self.itemsPerPage = ~~event.srcElement.options[event.srcElement.selectedIndex].value;
+				localStorage.setItem("itemsPerPage",self.itemsPerPage)
                 self.update(self.displayed);
 
             });
