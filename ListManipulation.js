@@ -135,6 +135,8 @@ List.prototype.search = function(target, attributes) {
 List.prototype.toPages = function(entriesPerPage, sublist) {
     if (sublist === undefined || sublist === null)
         sublist = this.getList();
+	if(isNaN(entriesPerPage))
+		throw 'EntriesPerPage isNaN. Actual val: '+entriesPerPage;
     var pages = [];
 // ReSharper disable once QualifiedExpressionMaybeNull
     for (var i = 0; i < sublist.length; i += entriesPerPage) {

@@ -1,6 +1,8 @@
 $(document).ready(function(){
+//window.localStorage.clear("itemsPerPage");
 $("#tester").on('sorted',function(e){
 $("#sortLabel").text("sorted on: "+e.detail.attribute);
+
 /*if(e.detail.ascending)
 var icon=e.detail.element.getAttribute("data-sort-icon-asc");
 else 

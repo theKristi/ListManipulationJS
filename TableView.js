@@ -24,6 +24,8 @@
         this.setUpPagerAttributes();
         this.currentPage = 0;
         this.goToPage = function (page) {
+			if(page<0||page>this.pages.length)
+				throw "goToPage called with invalid index "+page;
             if (this.pages) {
                 this.currentPage = page;
                 this.buildTable(this.pages[page]);
@@ -161,7 +163,9 @@ TableView.prototype.SubmitSelected= function(event) {
 TableView.prototype.buildPager = function () {
     this.RemoveChildren(this.pagerElement);
     var self = this;
-    this.pages = this.list.toPages(this.itemsPerPage, this.displayed);
+	this.pages = this.list.toPages(this.itemsPerPage, this.displayed);
+	if(this.currentPage>=this.pages.length)
+		this.currentPage=this.pages.length-1;
     var startPage = 1;
     var endPage = this.pages.length;
     if (this.maxDisplayedPages) {
@@ -200,7 +204,7 @@ TableView.prototype.setUpPagerAttributes = function () {
     this.itemsPerPageElement = document.querySelectorAll("[data-items-per-page-for=" + this.tableElement.id + "]")[0];
     if (this.itemsPerPageElement) {
 		if(localStorage.getItem("itemsPerPage")===null){
-        this.itemsPerPage = this.itemsPerPageElement.value;
+        this.itemsPerPage = ~~this.itemsPerPageElement.value;
 		localStorage.setItem("itemsPerPage", this.itemsPerPage)
 		}
 	else
