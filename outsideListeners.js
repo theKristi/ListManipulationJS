@@ -1,6 +1,6 @@
 $(document).ready(function(){
 //window.localStorage.clear("itemsPerPage");
-$("#tester").on('sorted',function(e){
+$("#tester").on('Sorted',function(e){
 $("#sortLabel").text("sorted on: "+e.detail.attribute);
 
 /*if(e.detail.ascending)
@@ -38,5 +38,7 @@ $("#tester").on("Select", function(e){
 	}
 	$(".selectLabel").text("("+SelectedRecords.length+")");
 });
-
+$("#tester").on("Searched", function(e){
+	
+})
 })

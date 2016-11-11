@@ -99,7 +99,7 @@ TableView.prototype.Sort = function (attr) {
     this.displayedSortedOn = attr.currentTarget.innerText;
     this.update(sorted);
     var sortedEvent = document.createEvent("CustomEvent");
-    sortedEvent.initCustomEvent("sorted", true, true,  { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget });
+    sortedEvent.initCustomEvent("Sorted", true, true,  { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget });
     //var sortedEvent = new CustomEvent("sorted", { 'detail': { 'attribute': this.displayedSortedOn, 'ascending': this.asc, "element": attr.currentTarget } });
     this.tableElement.dispatchEvent(sortedEvent);
 
@@ -110,11 +110,16 @@ TableView.prototype.Search = function () {
     this.searchFilter = this.searchElement.value;
     var properties = this.list.getHeadersFromHtml(this.tableElement.tHead)
     var filteredList = this.list.search(this.searchFilter, properties)
+	  var searchEvent = document.createEvent("CustomEvent");
+    searchEvent.initCustomEvent("Searched", true, true,  { 'attributes': properties, 'results': filteredList});
+this.tableElement.dispatchEvent(searchEvent);
+	
     if (this.displayedSortedOn)
         this.displayed = this.list.sort(filteredList, this.displayedSortedOn,this.asc);
     else
         this.displayed = filteredList;
     this.update(this.displayed);
+	
 }
 
 TableView.prototype.SelectRow = function (event) {
