@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--Include css here-->
+<link rel= "stylesheet" type="text/css" href="bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="highlight.css">
+</head>
+<body>
+<!--Include Scripts here-->
+     
+    <script type="text/javascript" src="jquery-2.2.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.12/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+    <script src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script> 
+	<script src="datatableSetup.js"></script>
+	<script src="SearchSortPriority.js"></script>
+
+  
+	
+   <div>
+     <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+
+              <a href="#" class="navbar-brand">Kristi_the_coder</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </nav>
+		
+		
+        <div id="tableWrapper" class="col-md-6">
+		<input placeholder="Search" id="searchbar"></input>
+        <table id="tester" class="table table-bordered">
+        <thead>
+			<th>Index</th>
+        	<th>First Name</th>
+        	<th>Last Name</th>
+			<th>Search Priority</th>
+        </thead>
+        <tbody>
+        	<tr  disabled="disabled">
+			<td>0</td>
+        	<td>Fred</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+        	<tr>
+			<td>1</td>
+        	<td>George</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>2</td>
+        	<td>Harry</td>
+        	<td>Potter</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>3</td>
+        	<td>Tom</td>
+        	<td>Riddle</td>
+			<td></td>
+			</tr>
+			<tr>
+			<td>4</td>
+        	<td>Albus</td>
+        	<td>Dumbledore</td>
+			<td></td>
+			</tr>
+			<tr>
+			<td>5</td>
+        	<td>Ronald</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>6</td>
+        	<td>Ginny</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>7</td>
+        	<td>Bill</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>8</td>
+        	<td>Charlie</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>9</td>
+        	<td>Hermione</td>
+        	<td>Granger</td>
+			<td></td>
+        	</tr>
+			<td>11</td>
+        	<td>Draco</td>
+        	<td>Malfoy</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>12</td>
+        	<td>Severus</td>
+        	<td>Snape</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>13</td>
+        	<td>Minerva</td>
+        	<td>McGonagall</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>14</td>
+        	<td>Philius</td>
+        	<td>Flitwick</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>15</td>
+        	<td>Pamona</td>
+        	<td>Sprout</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>16</td>
+        	<td>Sybill</td>
+        	<td>Trelawny</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>17</td>
+        	<td>Horace</td>
+        	<td>Slughorn</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>18</td>
+        	<td>Neville</td>
+        	<td>Longbottom</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>19</td>
+        	<td>Dean</td>
+        	<td>Thomas</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>20</td>
+        	<td>Seamus</td>
+        	<td>Finnegan</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>21</td>
+        	<td>Lee</td>
+        	<td>Jordan</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>22</td>
+        	<td>Alicia</td>
+        	<td>Spinnet</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>23</td>
+        	<td>Angelina</td>
+        	<td>Johnson</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>24</td>
+        	<td>Katie</td>
+        	<td>Bell</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>25</td>
+        	<td>Percy</td>
+        	<td>Weasley</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>26</td>
+        	<td>Ernie</td>
+        	<td>Mcmillan</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>27</td>
+        	<td>Justin</td>
+        	<td>Finch-Fletchley</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>28</td>
+        	<td>Hannah</td>
+        	<td>Abbot</td>
+        	<td></td>
+			</tr>
+			<tr>
+			<td>29</td>
+        	<td>Susan</td>
+        	<td>Bones</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>30</td>
+        	<td>Cho</td>
+        	<td>Chang</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>31</td>
+        	<td>Gregory</td>
+        	<td>Goyle</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>32</td>
+        	<td>Vincent</td>
+        	<td>Crabbe</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>33</td>
+        	<td>Luna</td>
+        	<td>Lovegood</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>34</td>
+        	<td>Lavander</td>
+        	<td>Brown</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>35</td>
+        	<td>Parvati</td>
+        	<td>Patil</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>36</td>
+        	<td>Padma</td>
+        	<td>Patil</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>37</td>
+        	<td>Cedric</td>
+        	<td>Diggory</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>38</td>
+        	<td>Michael</td>
+        	<td>Corner</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>39</td>
+        	<td>Alastor</td>
+        	<td>Moody</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>40</td>
+        	<td>Anthony</td>
+        	<td>Goldstien</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>41</td>
+        	<td>Terry</td>
+        	<td>Boot</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>42</td>
+        	<td>Rubeus</td>
+        	<td>Hagrid</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>43</td>
+        	<td>Molly</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>44</td>
+        	<td>Arthur</td>
+        	<td>Weasley</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>45</td>
+        	<td>Sirius</td>
+        	<td>Black</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>46</td>
+        	<td>Remus</td>
+        	<td>Lupin</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>47</td>
+        	<td>Zacharias</td>
+        	<td>Smith</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>48</td>
+        	<td>Sturgis</td>
+        	<td>Podmore</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>49</td>
+        	<td>Peter</td>
+        	<td>Pettigrew</td>
+			<td></td>
+        	</tr>
+			<tr>
+			<td>50</td>
+        	<td>Argus</td>
+        	<td>Filtch</td>
+			<td></td>
+        	</tr>
+        </tbody>
+
+        </table>
+		
+		</div>
+		<div class="col-md-6">
+		
+		 <button class="btn btn-lg">Submit Selected<span class="selectLabel"></span></button>
+		  <button class="btn btn-lg">rotate Icon<div class="glyphicon-chevron-down glyphicon"></div></button>
+		</div>
+
+</body>
+</html>
