@@ -16,6 +16,7 @@ var Table;
                 },
                 "aoColumns": columnMap
             });
+			  PriorityColIndex = 3;
 			SetSearchSortPriorityUIElements(columnMap);
 			$("#searchbar").on('keyup', function(e){
 				SearchByPriority(this.value);

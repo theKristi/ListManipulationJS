@@ -111,7 +111,7 @@ TableView.prototype.Search = function () {
     var properties = this.list.getHeadersFromHtml(this.tableElement.tHead)
     var filteredList = this.list.search(this.searchFilter, properties)
 	  var searchEvent = document.createEvent("CustomEvent");
-    searchEvent.initCustomEvent("Searched", true, true,  { 'attributes': properties, 'results': filteredList});
+    searchEvent.initCustomEvent("Searched", true, true,  { 'attributes': properties, 'results': filteredList, 'target':searchFilter});
 this.tableElement.dispatchEvent(searchEvent);
 	
     if (this.displayedSortedOn)
