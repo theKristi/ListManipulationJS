@@ -1,13 +1,14 @@
 var Table;
    $(document).ready(function() {
             var columnMap = [
-                { "bSearchable": true },
+                { "bSearchable": false },
                 { "bSearchable": true },
                 { "bSearchable": true },
 				{ "bSearchable": false },
                 
             ];
             Table =$("#tester").DataTable({
+				
                 "searchHighlight": true,
 				"dom":'lrtip',
                 "pageLength": 10,
@@ -19,6 +20,7 @@ var Table;
 			  PriorityColIndex = 3;
 			SetSearchSortPriorityUIElements(columnMap);
 			$("#searchbar").on('keyup', function(e){
+				
 				SearchByPriority(this.value);
 			})
 			

@@ -29,6 +29,7 @@ function SetSearchSortPriorityUIElements(columnMap) {
 
 
         CurrentSelection[~~currentMenu.id] = ~~$(currentMenu).val();
+		SearchByPriority($("#searchbar").val());
     });
 }
 var CurrentSelection = [];
@@ -45,7 +46,11 @@ function addValue(value, menu, currentMenu) {
         $(menu).append("<option value=" + value + ">" + value + "</option>");
 }
 function SearchByPriority(target) {
-    //copy slections to array
+	ResetSearchPriority()
+if(target!==''&&target!==undefined)
+{	
+  //copy slections to array
+  
     var selections = CurrentSelection.slice(0);
 
     for (var s = 0; s < selections.length; s++) {
@@ -61,10 +66,9 @@ function SearchByPriority(target) {
         Table.search('').columns().search('');
     };
     Table.search('').columns().search('');
-    Table.search(target).rows({ filter: 'applied' });
-    Table.order([PriorityColIndex, 'asc']);
-    Table.draw();
-
+    Table.search(target);
+    Table.order([PriorityColIndex, 'asc']).draw();
+}
 
 }
 function setSearchPriority(columnResults, priority) {
@@ -75,13 +79,17 @@ function setSearchPriority(columnResults, priority) {
             cell.data(priority).draw();
         else {
             currentPriority = ~~currentPriority;
-            if (currentPriority > priority)
                 cell.data(priority).draw();
         }
 
 
     }
 
+}
+function ResetSearchPriority(){
+	Table.search('').columns().search('');
+	setSearchPriority(  Table.search('').rows(), 100)
+	Table.draw();
 }
 
 
