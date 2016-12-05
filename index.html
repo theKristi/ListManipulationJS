@@ -38,261 +38,321 @@
 		</div>
 		<div id="sortLabel"></div>
         <div id="tableWrapper" class="col-md-6">
+		<div class="form-group col-sm-6">
+            <label>Houses</label>
+                <select class="form-control" id="houseList" multiple="multiple" >
+					<option value="Gryffindor">Gryffindor</option>
+					<option value="Slytherin">Slytherin</option>
+					<option value="Hufflepuff">Hufflepuff</option>
+					<option value="Ravenclaw">Ravenclaw</option>
+				</select>
+		</div>
         <table id="tester" class="table table-bordered" data-sort-table data-select-table data-highlight-class="highlight">
         <thead>
 			<th>Index</th>
         	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon" data-active-sort-classes="blue">First Name<span id="icon"></span></th>
         	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon " data-active-sort-classes="blue">Last Name <span id="icon"></span></th>
+			<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon " data-active-sort-classes="blue">House<span id="icon"></span></th>
         </thead>
-        <tbody>
-        	<tr  disabled="disabled">
+       <tbody>
+        	<tr>
 			<td>0</td>
         	<td>Fred</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
         	<tr>
 			<td>1</td>
         	<td>George</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>2</td>
         	<td>Harry</td>
         	<td>Potter</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>3</td>
         	<td>Tom</td>
         	<td>Riddle</td>
+			<td>Slytherin</td>
 			</tr>
 			<tr>
 			<td>4</td>
         	<td>Albus</td>
         	<td>Dumbledore</td>
+			<td>Gryffindor</td>
 			</tr>
 			<tr>
 			<td>5</td>
         	<td>Ronald</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>6</td>
         	<td>Ginny</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>7</td>
         	<td>Bill</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>8</td>
         	<td>Charlie</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>9</td>
         	<td>Hermione</td>
         	<td>Granger</td>
+			<td>Gryffindor</td>
         	</tr>
 			<td>11</td>
         	<td>Draco</td>
         	<td>Malfoy</td>
+			<td>Slytherin</td>
         	</tr>
 			<tr>
 			<td>12</td>
         	<td>Severus</td>
         	<td>Snape</td>
-        	</tr>
+        	<td>Slytherin</td>
+			</tr>
 			<tr>
 			<td>13</td>
         	<td>Minerva</td>
         	<td>McGonagall</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>14</td>
         	<td>Philius</td>
         	<td>Flitwick</td>
-        	</tr>
+        	<td>Ravenclaw</td>
+			</tr>
 			<tr>
 			<td>15</td>
         	<td>Pamona</td>
         	<td>Sprout</td>
-        	</tr>
+        	<td>Hufflepuff</td>
+			</tr>
 			<tr>
 			<td>16</td>
         	<td>Sybill</td>
         	<td>Trelawny</td>
-        	</tr>
+        	<td>Ravenclaw</td>
+			</tr>
 			<tr>
 			<td>17</td>
         	<td>Horace</td>
         	<td>Slughorn</td>
-        	</tr>
+        	<td>Slytherin</td>
+			</tr>
 			<tr>
 			<td>18</td>
         	<td>Neville</td>
         	<td>Longbottom</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>19</td>
         	<td>Dean</td>
         	<td>Thomas</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>20</td>
         	<td>Seamus</td>
         	<td>Finnegan</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>21</td>
         	<td>Lee</td>
         	<td>Jordan</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>22</td>
         	<td>Alicia</td>
         	<td>Spinnet</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>23</td>
         	<td>Angelina</td>
         	<td>Johnson</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>24</td>
         	<td>Katie</td>
         	<td>Bell</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>25</td>
         	<td>Percy</td>
         	<td>Weasley</td>
-        	</tr>
+        	<td>Gryffindor</td>
+			</tr>
 			<tr>
 			<td>26</td>
         	<td>Ernie</td>
         	<td>Mcmillan</td>
-        	</tr>
+        	<td>Hufflepuff</td>
+			</tr>
 			<tr>
 			<td>27</td>
         	<td>Justin</td>
         	<td>Finch-Fletchley</td>
-        	</tr>
+        	<td>Hufflepuff</td>
+			</tr>
 			<tr>
 			<td>28</td>
         	<td>Hannah</td>
         	<td>Abbot</td>
-        	</tr>
+        	<td>Hufflepuff</td>
+			</tr>
 			<tr>
 			<td>29</td>
         	<td>Susan</td>
         	<td>Bones</td>
+			<td>Hufflepuff</td>
         	</tr>
 			<tr>
 			<td>30</td>
         	<td>Cho</td>
         	<td>Chang</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>31</td>
         	<td>Gregory</td>
         	<td>Goyle</td>
+			<td>Slytherin</td>
         	</tr>
 			<tr>
 			<td>32</td>
         	<td>Vincent</td>
         	<td>Crabbe</td>
+			<td>Slytherin</td>
         	</tr>
 			<tr>
 			<td>33</td>
         	<td>Luna</td>
         	<td>Lovegood</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>34</td>
         	<td>Lavander</td>
         	<td>Brown</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>35</td>
         	<td>Parvati</td>
         	<td>Patil</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>36</td>
         	<td>Padma</td>
         	<td>Patil</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>37</td>
         	<td>Cedric</td>
         	<td>Diggory</td>
+			<td>Hufflepuff</td>
         	</tr>
 			<tr>
 			<td>38</td>
         	<td>Michael</td>
         	<td>Corner</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>39</td>
         	<td>Alastor</td>
         	<td>Moody</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>40</td>
         	<td>Anthony</td>
         	<td>Goldstien</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>41</td>
         	<td>Terry</td>
         	<td>Boot</td>
+			<td>Ravenclaw</td>
         	</tr>
 			<tr>
 			<td>42</td>
         	<td>Rubeus</td>
         	<td>Hagrid</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>43</td>
         	<td>Molly</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>44</td>
         	<td>Arthur</td>
         	<td>Weasley</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>45</td>
         	<td>Sirius</td>
         	<td>Black</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>46</td>
         	<td>Remus</td>
         	<td>Lupin</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>47</td>
         	<td>Zacharias</td>
         	<td>Smith</td>
+			<td>Hufflepuff</td>
         	</tr>
 			<tr>
 			<td>48</td>
         	<td>Sturgis</td>
         	<td>Podmore</td>
+			<td>Hufflepuff</td>
         	</tr>
 			<tr>
 			<td>49</td>
         	<td>Peter</td>
         	<td>Pettigrew</td>
+			<td>Gryffindor</td>
         	</tr>
 			<tr>
 			<td>50</td>
         	<td>Argus</td>
         	<td>Filtch</td>
+			<td>None</td>
         	</tr>
         </tbody>
 

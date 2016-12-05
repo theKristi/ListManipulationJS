@@ -1,18 +1,6 @@
 $(document).ready(function(){
-//window.localStorage.clear("itemsPerPage");
-$("#tester").on('Sorted',function(e){
-$("#sortLabel").text("sorted on: "+e.detail.attribute);
 
-/*if(e.detail.ascending)
-var icon=e.detail.element.getAttribute("data-sort-icon-asc");
-else 
-	icon=e.detail.element.getAttribute("data-sort-icon-desc");
-icon=icon
-$(e.detail.element.children.icon).removeClass();
-$(e.detail.element.children.icon).addClass(icon);
-var active=e.detail.element.getAttribute("data-active-sort-classes");
-$(e.detail.element).addClass(active).siblings().removeClass(active);*/
-});
+
 var SelectedRecords=[];
 $("#tester").on("Select", function(e){
 	
@@ -39,6 +27,59 @@ $("#tester").on("Select", function(e){
 	$(".selectLabel").text("("+SelectedRecords.length+")");
 });
 $("#tester").on("Searched", function(e){
+	var searchResults=e.detail.results;
+	var target=e.detail.target;
 	
-})
-})
+	for(var record in searchResults){
+		clearHighlights(searchResults[record].html);
+		if(target!=="")
+		highlightMatches(searchResults[record],target, e.detail.attributes)
+	
+	}
+	console.log("\n")
+});
+function highlightMatches(record, target, propertiesSearched){
+	var regex = new RegExp(target,'gi');
+	//get at record data
+	for(var index in propertiesSearched){
+		var cell=record.html.cells[index]
+		var property=propertiesSearched[index];
+		//get matches in property column
+		var stringToCheck=record[property];
+		var result=[];
+		var matches=[];
+	
+		if(stringToCheck!==""){
+			while ( (result = regex.exec(stringToCheck)) ) {
+				var msg = 'Found ' + result[0] + ' in '+stringToCheck+'. ';
+  msg += 'Next match starts at ' + regex.lastIndex;
+  console.log(msg);
+				//matches.push(result.index);
+				updateHtml(cell,result.index,result.index+target.length)
+		
+			}//end while
+			
+		}//end if
+	
+		
+	}
+}
+function updateHtml(element, start, end) {
+    var item = $(element);
+    var str = item.data("origHTML");
+    if (!str) {
+        str = item.html();
+        item.data("origHTML", str);
+    }
+    str = str.substr(0, start) +
+        '<span class="hilite">' + 
+        str.substr(start, end - start) +
+        '</span>' +
+        str.substr(end);
+    item.html(str);
+}
+function clearHighlights(element){
+	var highlights=$(element).find(".hilite").contents().unwrap();
+
+}
+});
