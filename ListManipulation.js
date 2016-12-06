@@ -223,7 +223,7 @@ if(headerRow.localName=="thead")
     var headers = [];
     for (var entry in headerRow) {
 
-        if (headerRow[entry].outerText != undefined) {
+        if (headerRow[entry].outerText !== undefined) {
             var string = headerRow[entry].outerText.trim();
             string = string.replace(/\s+/g, '');
             headers.push(string);

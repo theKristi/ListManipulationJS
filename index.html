@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!--Include css here-->
 <link rel= "stylesheet" type="text/css" href="bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="fonts/iconfont.css">
 <link rel="stylesheet" type="text/css" href="highlight.css">
 </head>
 <body>
@@ -36,11 +37,11 @@
 		<div>
 		<input type="text" placeholder="Search" data-search-bar-for="tester" class="input-lg"></input>
 		</div>
-		<div id="sortLabel"></div>
+	
         <div id="tableWrapper" class="col-md-6">
 		<div class="form-group col-sm-6">
             <label>Houses</label>
-                <select class="form-control" id="houseList" multiple="multiple" >
+                <select class="form-control" data-search-bar-for="tester" id="houseList" multiple="multiple" >
 					<option value="Gryffindor">Gryffindor</option>
 					<option value="Slytherin">Slytherin</option>
 					<option value="Hufflepuff">Hufflepuff</option>
@@ -50,9 +51,9 @@
         <table id="tester" class="table table-bordered" data-sort-table data-select-table data-highlight-class="highlight">
         <thead>
 			<th>Index</th>
-        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon" data-active-sort-classes="blue">First Name<span id="icon"></span></th>
-        	<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon " data-active-sort-classes="blue">Last Name <span id="icon"></span></th>
-			<th data-sort-on data-sort-icon-asc="glyphicon-chevron-down glyphicon sort-icon" data-sort-icon-dsc="glyphicon-chevron-up glyphicon " data-active-sort-classes="blue">House<span id="icon"></span></th>
+        	<th data-sort-on data-sort-icon-asc="icon-sort_down" data-sort-icon-dsc="icon-sort_up" data-active-sort-classes="blue" search-attribute-for="mainSearch">First Name<span id="icon"></span></th>
+        	<th data-sort-on data-sort-icon-asc="icon-sort_down" data-sort-icon-dsc="icon-sort_up" data-active-sort-classes="blue" search-attribute-for="mainSearch">Last Name <span id="icon"></span></th>
+			<th data-sort-on data-sort-icon-asc="icon-sort_down" data-sort-icon-dsc="icon-sort_up" data-active-sort-classes="blue" search-attribute-for="houseList">House<span id="icon"></span></th>
         </thead>
        <tbody>
         	<tr>
@@ -382,8 +383,8 @@
 		</div>
 		<div class="col-md-6">
 		
-		 <button class="btn btn-lg">Submit Selected<span class="selectLabel"></span></button>
-		  <button class="btn btn-lg">rotate Icon<div class="glyphicon-chevron-down glyphicon"></div></button>
+		 <label><span class="selectLabel">0</span>Selected</label><br/>
+		  <label id="sortLabel">Sorted on: index</label>
 		</div>
 
 </body>

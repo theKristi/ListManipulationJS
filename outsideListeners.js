@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+$("#tester").on('Sorted',function(e){
+$("#sortLabel").text("Sorted on: "+e.detail.attribute);
+});
 
 var SelectedRecords=[];
 $("#tester").on("Select", function(e){
