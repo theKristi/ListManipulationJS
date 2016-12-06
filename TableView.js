@@ -3,7 +3,7 @@
     this.tableElement = tableElement;
     this.sortOnElements = this.tableElement.querySelectorAll("[data-sort-on]");
     this.SetSortIcons();
-    this.searchElement = document.querySelectorAll("[data-search-bar-for=" + this.tableElement.id + "]")[0];
+    this.searchElements = document.querySelectorAll("[data-search-bar-for=" + this.tableElement.id + "]");
     var submitSearch = document.querySelectorAll("[data-submit-search-bar-for=" + this.tableElement.id + "]")
     if (submitSearch.length > 0)
         this.submitSearch = submitSearch;
@@ -106,14 +106,22 @@ TableView.prototype.Sort = function (attr) {
   
 }
 
-TableView.prototype.Search = function (properties) {
-    this.searchFilter = this.searchElement.value;
-    
-    var filteredList = this.list.search(this.searchFilter, properties)
+TableView.prototype.Search = function () {
+    /*var filter=element.value
+    //get properties tied to this by id
+	var properties=[];
+	document.querySelectorAll("[search-attribute-for=" + element.id + "]").forEach(function(header){
+		 properties[header.cellIndex]=header.innerText.replace(/\s+/g, '');
+	});
+    var filteredList = this.list.search(filter, properties)
 	  var searchEvent = document.createEvent("CustomEvent");
-    searchEvent.initCustomEvent("Searched", false, true,  { 'attributes': properties, 'results': filteredList, 'target':this.searchFilter});
+    searchEvent.initCustomEvent("Searched", false, true,  { 'attributes': properties, 'results': filteredList, 'target':filter});
 this.tableElement.dispatchEvent(searchEvent);
-	
+*/
+//search by all set filters	
+var target=this.BuildSearchExpression();
+var filteredList;
+
     if (this.displayedSortedOn)
         this.displayed = this.list.sort(filteredList, this.displayedSortedOn,this.asc);
     else
@@ -236,17 +244,19 @@ TableView.prototype.SetUpEventListeners = function() {
             }, false);
         }
     }
-    if (this.searchElement && !this.submitSearch) {
-        this.searchElement.addEventListener("input", function(event) {
+    if (this.searchElements && !this.submitSearch) {
+		for(var i=0; i<this.searchElements.length;i++)
+		{
+			this.searchElements[i].addEventListener("input", function(event) {
             event.stopImmediatePropagation();
             self.Search();
-        }, false);
+        }, false);}
        
     }
-    if (this.searchElement && this.submitSearch) {
+    if (this.searchElements && this.submitSearch) {
 
         for (var i = 0; i < this.submitSearch.length; i++) {
-            this.submitSearch[i].addEventListener("click", function() { self.Search(); }, false);
+            this.submitSearch[i].addEventListener("click", function() { self.Search(this); }, false);
         }
 
     }
@@ -344,6 +354,24 @@ TableView.prototype.CalculatePageRange = function () {
             end: current + Math.ceil(range / 2)
         };
     }
+}
+TableView.prototype.BuildSearchExpression=function(){
+	var searchExp='';
+	this.searchElements.forEach(function(element){
+		if(element.type=='text'||element.type=='select')
+			searchExp+=element.value;
+		else if(element.type=="select-multiple"){
+			for(var o=0;o<element.selectedOptions.length;o++){
+				 searchExp+=element.selectedOptions[o].value;
+				 if(element.selectedOptions.length!==o+1)
+					searchExp+="|";
+			}
+		}
+		if(searchExp!=='')
+		searchExp+="&"
+	});	
+	return searchExp;
+	
 }
 var tableViews;
 document.addEventListener("DOMContentLoaded", function (event) {

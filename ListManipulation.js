@@ -90,15 +90,17 @@ List.prototype.sort = function (sublist, attrName, asc) {
     return sublist;
 };
 
-List.prototype.search = function(target, attributes) {
-   
+List.prototype.search = function(target, attributes, sublist) {
+	var filterFunction;
     var filteredList = [];
-	var wholeList=this.getList();
+	if(sublist==undefined)
+	var sublist=this.getList();
 
     if (attributes === undefined||attributes==null) {
         attributes = Object.getOwnPropertyNames(wholeList[0]);
 		
     } else {
+		//chech param attributes are valid
         var listAttributes = Object.getOwnPropertyNames(wholeList[0]);
         attributes.forEach(function(attr) {
             var res = 0;
@@ -107,29 +109,11 @@ List.prototype.search = function(target, attributes) {
 
         });
     }
-    if (target !== undefined && target !== null) {
-		if(typeof target=='string')
-        target = target.toLowerCase();
-        filteredList =wholeList.filter(function(object) {
-            //check for attributes which contain target
-            for (var attr in attributes) {
-				
-                attributes[attr]=attributes[attr].trim();
-                var searchString = object[attributes[attr]];
-                if (typeof searchString === 'string') {
-                    searchString = searchString.toLowerCase();
-                    if (searchString.indexOf(target) > -1)
-                        return true;
-                }
-				if(typeof searchString=='object')
-					return searchString===target;
-            }
-            return false;
-        });
-
-    }
-    return filteredList;
-
+	var sublistStrings=[];
+	sublist.forEach(function (jsonObject){
+		delete jsonObject.html;
+	sublistStrings.push(JSON.stringify(jsonObject));
+	})
 };
 
 List.prototype.toPages = function(entriesPerPage, sublist) {

@@ -32,17 +32,21 @@ $("#tester").on("Select", function(e){
 $("#tester").on("Searched", function(e){
 	var searchResults=e.detail.results;
 	var target=e.detail.target;
+	var attributes=e.detail.attributes;
+	
+	
 	
 	for(var record in searchResults){
 		clearHighlights(searchResults[record].html);
 		if(target!=="")
-		highlightMatches(searchResults[record],target, e.detail.attributes)
+		highlightMatches(searchResults[record],target, attributes)
 	
 	}
 	console.log("\n")
 });
 function highlightMatches(record, target, propertiesSearched){
 	var regex = new RegExp(target,'gi');
+	
 	//get at record data
 	for(var index in propertiesSearched){
 		var cell=record.html.cells[index]
@@ -50,7 +54,7 @@ function highlightMatches(record, target, propertiesSearched){
 		//get matches in property column
 		var stringToCheck=record[property];
 		var result=[];
-		var matches=[];
+		
 	
 		if(stringToCheck!==""){
 			while ( (result = regex.exec(stringToCheck)) ) {
