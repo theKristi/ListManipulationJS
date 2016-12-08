@@ -91,7 +91,24 @@ List.prototype.sort = function (sublist, attrName, asc) {
 };
 
 List.prototype.search = function(target, attributes, sublist,filterFunction) {
-	//TODO:use filter function if available 
+	//TODO:use filter function if available
+	if(filterFunction==undefined)
+		filterFunction=function(object) {
+            //check for attributes which contain target
+            for (var attr in attributes) {
+                
+                attributes[attr]=attributes[attr].trim();
+                var searchString = object[attributes[attr]];
+                if (typeof searchString === 'string') {
+                    searchString = searchString.toLowerCase();
+                    if (searchString.indexOf(target) > -1)
+                        return true;
+                }
+                if(typeof searchString=='object')
+                    return searchString===target;
+            }
+            return false;
+        } 
     var filteredList = [];
 	if(sublist==undefined)
 	var sublist=this.getList();
@@ -112,22 +129,7 @@ List.prototype.search = function(target, attributes, sublist,filterFunction) {
 	if (target !== undefined && target !== null) {
         if(typeof target=='string')
         target = target.toLowerCase();
-        filteredList =sublist.filter(function(object) {
-            //check for attributes which contain target
-            for (var attr in attributes) {
-                
-                attributes[attr]=attributes[attr].trim();
-                var searchString = object[attributes[attr]];
-                if (typeof searchString === 'string') {
-                    searchString = searchString.toLowerCase();
-                    if (searchString.indexOf(target) > -1)
-                        return true;
-                }
-                if(typeof searchString=='object')
-                    return searchString===target;
-            }
-            return false;
-        });
+        filteredList =sublist.filter(filterFunction);
         return filteredList;
     }
 };

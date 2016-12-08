@@ -33,8 +33,10 @@ $("#tester").on("Searched", function(e){
 	var searchResults=e.detail.results;
 	var target=e.detail.target;
 	var attributes=e.detail.attributes;
-	
-	
+	var input=e.detail.input;
+	if(input.id==='mainSearch'){
+
+
 	
 	for(var record in searchResults){
 		clearHighlights(searchResults[record].html);
@@ -42,7 +44,8 @@ $("#tester").on("Searched", function(e){
 		highlightMatches(searchResults[record],target, attributes)
 	
 	}
-	console.log("\n")
+}
+	
 });
 function highlightMatches(record, target, propertiesSearched){
 	var regex = new RegExp(target,'gi');
