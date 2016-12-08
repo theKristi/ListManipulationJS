@@ -90,17 +90,17 @@ List.prototype.sort = function (sublist, attrName, asc) {
     return sublist;
 };
 
-List.prototype.search = function(target, attributes, sublist) {
-	
+List.prototype.search = function(target, attributes, sublist,filterFunction) {
+	//TODO:use filter function if available 
     var filteredList = [];
 	if(sublist==undefined)
 	var sublist=this.getList();
 
     if (attributes === undefined||attributes==null) {
-        attributes = Object.getOwnPropertyNames(wholeList[0]);
+        attributes = Object.getOwnPropertyNames(subList[0]);
 		
     } else {
-		//chech param attributes are valid
+		//check param attributes are valid
         var listAttributes = Object.getOwnPropertyNames(sublist[0]);
         attributes.forEach(function(attr) {
             var res = 0;
