@@ -37,7 +37,7 @@ $("#tester").on("Searched", function(e){
 	if(input.id==='mainSearch'){
 
 
-	
+
 	for(var record in searchResults){
 		clearHighlights(searchResults[record].html);
 		if(target!=="")
@@ -49,7 +49,7 @@ $("#tester").on("Searched", function(e){
 });
 function highlightMatches(record, target, propertiesSearched){
 	var regex = new RegExp(target,'gi');
-	
+	console.log(JSON.stringify(record))
 	//get at record data
 	for(var index in propertiesSearched){
 		var cell=record.html.cells[index]
@@ -61,7 +61,7 @@ function highlightMatches(record, target, propertiesSearched){
 	
 		if(stringToCheck!==""){
 			while ( (result = regex.exec(stringToCheck)) ) {
-		
+				
 				//matches.push(result.index);
 				updateHtml(cell,result.index,result.index+target.length)
 		

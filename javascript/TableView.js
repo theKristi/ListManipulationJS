@@ -29,6 +29,12 @@
             if (this.pages) {
                 this.currentPage = page;
                 this.buildTable(this.pages[page]);
+					//update label
+				var startingrecord=this.itemsPerPage*page+1
+				var labelString="Showing records "+startingrecord +" to "+ (startingrecord+this.pages[page].length-1)+" of "+this.displayed.length
+				if(this.displayed.length!=this.list.getList().length)
+					labelString+="(Filtered from "+this.list.getList().length+")"
+				document.getElementById("showRecords").innerHTML=labelString
                 this.SetUpEventListeners();
             }
         }
@@ -203,6 +209,7 @@ TableView.prototype.buildPager = function () {
 
     }
 	self.itemsPerPageElement.value=localStorage.getItem("itemsPerPage")
+
     self.goToPage(this.currentPage);
 
 }
@@ -353,6 +360,7 @@ TableView.prototype.CalculatePageRange = function () {
     }
 }
 TableView.prototype.BuildSearchExpression=function(){
+	//(?:"property":("?\w*(target)))
 	var searchExp='(';
 	this.searchElements.forEach(function(element){
 		if(element.type=='text'||element.type=='select')
