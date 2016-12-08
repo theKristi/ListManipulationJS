@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'icon';
+  src: url('fonts/iconfont.woff'),
+       url('fonts/iconfont.ttf') format('truetype');
+}
+
+.highlight {
+    background-color: black;
+    color: white;    
+}
+.blue{
+	color:#0079c1;
+}
+.hilite{
+	background-color:yellow;
+}
+th>.icon{
+font-family: 'icon'
+}
