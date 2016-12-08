@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ListManipulation Table Generator</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--Include css here-->
+<link rel= "stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../fonts/iconfont.css">
+<link rel="stylesheet" type="text/css" href="../../css/highlight.css">
+</head>
+<body>
+  <!--Include Scripts here-->
+   <script type="text/javascript" src="../../javascript/jquery-2.2.1.min.js"></script>
+   <script type="text/javascript" src="setUp.js"></script> 
+   <script type="text/javascript" src="TableBuilder.js"></script> 
+   <script type="text/javascript" src="../../javascript/ListManipulation.js"></script>
+   <script type="text/javascript" src="../../javascript/TableView.js"></script>    
+   <script type="text/javascript" src="../../javascript/outsideListeners.js"></script>
+
+   <div>
+     <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+
+              <a href="#" class="navbar-brand">Kristi_the_coder</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </nav>
+  </div>
+    <div>
+    <input type="text" id= "mainSearch" placeholder="Search" data-search-bar-for="tester" class="input-lg"></input>
+    </div>
+     <div id="tableWrapper" class="col-md-6">
+		 <div class="pagerContainer">
+		 <label id="numRecords">Showing records</label></br>
+                <div class="pager pagination"
+                     data-pager-for="tester"
+                     data-active-page-class="active"
+                     data-max-displayed-pages="5">
+                    <div hidden data-pager-template>
+                        <li>
+                            <a>{pagenum}</a>
+                        </li>
+                    </div>
+                </div>
+                <div class="pull-right" style="margin-right: 10px;">
+                    <label>Max Clients Displayed</label>
+                    <select style="height: 37px;" data-items-per-page-for="tester">
+                        <option value="5">5</option>
+                        <option value="10" selected="selected">10</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+            </div>	
+	 </div>
+		
+</body>
+</html>

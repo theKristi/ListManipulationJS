@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+console.log("setting outside listeners")
 $("#tester").on('Sorted',function(e){
 $("#sortLabel").text("Sorted on: "+e.detail.attribute);
 });
@@ -61,9 +61,7 @@ function highlightMatches(record, target, propertiesSearched){
 	
 		if(stringToCheck!==""){
 			while ( (result = regex.exec(stringToCheck)) ) {
-				var msg = 'Found ' + result[0] + ' in '+stringToCheck+'. ';
-  msg += 'Next match starts at ' + regex.lastIndex;
-  console.log(msg);
+		
 				//matches.push(result.index);
 				updateHtml(cell,result.index,result.index+target.length)
 		
