@@ -106,8 +106,8 @@ TableView.prototype.Sort = function (attr) {
   
 }
 
-TableView.prototype.Search = function () {
-    /*var filter=element.value
+TableView.prototype.Search = function (element) {
+    var filter=element.value;
     //get properties tied to this by id
 	var properties=[];
 	document.querySelectorAll("[search-attribute-for=" + element.id + "]").forEach(function(header){
@@ -117,10 +117,9 @@ TableView.prototype.Search = function () {
 	  var searchEvent = document.createEvent("CustomEvent");
     searchEvent.initCustomEvent("Searched", false, true,  { 'attributes': properties, 'results': filteredList, 'target':filter});
 this.tableElement.dispatchEvent(searchEvent);
-*/
+
 //search by all set filters	
-var target=this.BuildSearchExpression();
-var filteredList;
+
 
     if (this.displayedSortedOn)
         this.displayed = this.list.sort(filteredList, this.displayedSortedOn,this.asc);
@@ -249,7 +248,7 @@ TableView.prototype.SetUpEventListeners = function() {
 		{
 			this.searchElements[i].addEventListener("input", function(event) {
             event.stopImmediatePropagation();
-            self.Search();
+            self.Search(this);
         }, false);}
        
     }
@@ -356,7 +355,7 @@ TableView.prototype.CalculatePageRange = function () {
     }
 }
 TableView.prototype.BuildSearchExpression=function(){
-	var searchExp='';
+	var searchExp='(';
 	this.searchElements.forEach(function(element){
 		if(element.type=='text'||element.type=='select')
 			searchExp+=element.value;
@@ -368,7 +367,7 @@ TableView.prototype.BuildSearchExpression=function(){
 			}
 		}
 		if(searchExp!=='')
-		searchExp+="&"
+		searchExp+=")"
 	});	
 	return searchExp;
 	

@@ -91,7 +91,7 @@ List.prototype.sort = function (sublist, attrName, asc) {
 };
 
 List.prototype.search = function(target, attributes, sublist) {
-	var filterFunction;
+	
     var filteredList = [];
 	if(sublist==undefined)
 	var sublist=this.getList();
@@ -101,7 +101,7 @@ List.prototype.search = function(target, attributes, sublist) {
 		
     } else {
 		//chech param attributes are valid
-        var listAttributes = Object.getOwnPropertyNames(wholeList[0]);
+        var listAttributes = Object.getOwnPropertyNames(sublist[0]);
         attributes.forEach(function(attr) {
             var res = 0;
             if (listAttributes.indexOf(attr) <= -1)
@@ -109,11 +109,27 @@ List.prototype.search = function(target, attributes, sublist) {
 
         });
     }
-	var sublistStrings=[];
-	sublist.forEach(function (jsonObject){
-		delete jsonObject.html;
-	sublistStrings.push(JSON.stringify(jsonObject));
-	})
+	if (target !== undefined && target !== null) {
+        if(typeof target=='string')
+        target = target.toLowerCase();
+        filteredList =sublist.filter(function(object) {
+            //check for attributes which contain target
+            for (var attr in attributes) {
+                
+                attributes[attr]=attributes[attr].trim();
+                var searchString = object[attributes[attr]];
+                if (typeof searchString === 'string') {
+                    searchString = searchString.toLowerCase();
+                    if (searchString.indexOf(target) > -1)
+                        return true;
+                }
+                if(typeof searchString=='object')
+                    return searchString===target;
+            }
+            return false;
+        });
+        return filteredList;
+    }
 };
 
 List.prototype.toPages = function(entriesPerPage, sublist) {
