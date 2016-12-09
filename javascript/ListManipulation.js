@@ -102,7 +102,10 @@ List.prototype.search = function(target, attributes, sublist,filterFunction) {
                 if (typeof searchString === 'string') {
                     searchString = searchString.toLowerCase();
                     if (searchString.indexOf(target) > -1)
+					{
+						console.log(JSON.stringify(object))
                         return true;
+					}
                 }
                 if(typeof searchString=='object')
                     return searchString===target;

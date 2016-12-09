@@ -114,11 +114,11 @@ TableView.prototype.Sort = function (attr) {
 
 TableView.prototype.Search = function (element) {
     var filter=element.value;
+	var expressions=this.BuildSearchExpressions();
+	console.log(expressions);
     //get properties tied to this by id
-	var properties=[];
-	document.querySelectorAll("[search-attribute-for=" + element.id + "]").forEach(function(header){
-		 properties[header.cellIndex]=header.innerText.replace(/\s+/g, '');
-	});
+	var properties=this.GetPropertiesToSearchOn(element);
+	
     var filteredList = this.list.search(filter, properties)
 	  var searchEvent = document.createEvent("CustomEvent");
     searchEvent.initCustomEvent("Searched", false, true,  { 'input':element,'attributes': properties, 'results': filteredList, 'target':filter});
@@ -359,24 +359,52 @@ TableView.prototype.CalculatePageRange = function () {
         };
     }
 }
-TableView.prototype.BuildSearchExpression=function(){
+TableView.prototype.BuildSearchExpressions=function(){
 	//(?:"property":("?\w*(target)))
-	var searchExp='(';
+	var searchExpressions=[]
+	var tableView=this;
 	this.searchElements.forEach(function(element){
-		if(element.type=='text'||element.type=='select')
-			searchExp+=element.value;
-		else if(element.type=="select-multiple"){
-			for(var o=0;o<element.selectedOptions.length;o++){
-				 searchExp+=element.selectedOptions[o].value;
-				 if(element.selectedOptions.length!==o+1)
-					searchExp+="|";
-			}
+		var expression='';
+	//get properties
+	var properties=tableView.GetPropertiesToSearchOn(element)
+	var targetExpression=tableView.GetTargetExpression(element);
+	for(var propertyIndex=0;propertyIndex<properties.length;propertyIndex++){
+		if(properties[propertyIndex]&&targetExpression!=='')
+		{
+			
+			expression+="(?:\""+properties[propertyIndex]+"\":"+targetExpression+")";
+			if(propertyIndex!=properties.length-1)
+			expression+="|"
 		}
-		if(searchExp!=='')
-		searchExp+=")"
-	});	
-	return searchExp;
+	}
 	
+	if(expression!='')
+	searchExpressions.push(expression)
+	});	
+	return searchExpressions;
+	
+}
+TableView.prototype.GetPropertiesToSearchOn=function(searchElement){
+	var properties=[];
+	document.querySelectorAll("[search-attribute-for=" + searchElement.id + "]").forEach(function(header){
+		 properties[header.cellIndex]=header.innerText.replace(/\s+/g, '');
+	});
+	return properties;
+}
+
+TableView.prototype.GetTargetExpression=function(searchElement){
+	var searchExpression='';
+	//(\"?\w*("+targetExpression+"))
+	if(searchElement.type=='text')
+ 			searchExpression+="(\"?\\w*("+searchElement.value+"))";
+ 		else if(searchElement.type.indexOf("select")>-1){
+ 			for(var o=0;o<searchElement.selectedOptions.length;o++){
+ 				 searchExpression+="(\""+searchElement.selectedOptions[o].value+")";
+ 				 if(searchElement.selectedOptions.length!==o+1)
+ 					searchExpression+="|";
+			}
+		}	
+	return searchExpression;
 }
 var tableViews;
 document.addEventListener("DOMContentLoaded", function (event) {
