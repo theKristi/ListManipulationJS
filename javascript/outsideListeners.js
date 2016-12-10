@@ -49,7 +49,7 @@ $("#tester").on("Searched", function(e){
 });
 function highlightMatches(record, target, propertiesSearched){
 	var regex = new RegExp(target,'gi');
-	console.log(JSON.stringify(record))
+	//console.log(JSON.stringify(record))
 	//get at record data
 	for(var index in propertiesSearched){
 		var cell=record.html.cells[index]
