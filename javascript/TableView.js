@@ -119,7 +119,18 @@ TableView.prototype.Search = function (element) {
     //get properties tied to this by id
 	var properties=this.GetPropertiesToSearchOn(element);
 	
-    var filteredList = this.list.search(filter, properties)
+    var filteredList = this.list.search(filter, properties,null,function(element){
+        var stringElement=JSON.stringify(element)
+        
+        for(var expression in expressions)
+        {
+            var match=expressions[expression].test(stringElement)
+            if(!match)
+                return false;
+        }
+            console.log(stringElement)
+            return true
+    })
 	  var searchEvent = document.createEvent("CustomEvent");
     searchEvent.initCustomEvent("Searched", false, true,  { 'input':element,'attributes': properties, 'results': filteredList, 'target':filter});
     this.tableElement.dispatchEvent(searchEvent);
@@ -364,7 +375,7 @@ TableView.prototype.BuildSearchExpressions=function(){
 	var searchExpressions=[]
 	var tableView=this;
 	this.searchElements.forEach(function(element){
-		var expression='';
+		var stringExpression='';
 	//get properties
 	var properties=tableView.GetPropertiesToSearchOn(element)
 	var targetExpression=tableView.GetTargetExpression(element);
@@ -372,14 +383,14 @@ TableView.prototype.BuildSearchExpressions=function(){
 		if(properties[propertyIndex]&&targetExpression!=='')
 		{
 			
-			expression+="(?:\""+properties[propertyIndex]+"\":"+targetExpression+")";
+			stringExpression+="(?:\""+properties[propertyIndex]+"\":"+targetExpression+")";
 			if(propertyIndex!=properties.length-1)
-			expression+="|"
+			stringExpression+="|"
 		}
 	}
 	
-	if(expression!='')
-	searchExpressions.push(expression)
+	if(stringExpression!='')
+	searchExpressions.push(new RegExp(stringExpression,"gi"))
 	});	
 	return searchExpressions;
 	
@@ -395,13 +406,16 @@ TableView.prototype.GetPropertiesToSearchOn=function(searchElement){
 TableView.prototype.GetTargetExpression=function(searchElement){
 	var searchExpression='';
 	//(\"?\w*("+targetExpression+"))
-	if(searchElement.type=='text')
+	if(searchElement.type=='text'&&searchElement.value!=='')
  			searchExpression+="(\"?\\w*("+searchElement.value+"))";
  		else if(searchElement.type.indexOf("select")>-1){
  			for(var o=0;o<searchElement.selectedOptions.length;o++){
+                if(searchElement.selectedOptions[o].value!=='')
+                {
  				 searchExpression+="(\""+searchElement.selectedOptions[o].value+")";
  				 if(searchElement.selectedOptions.length!==o+1)
  					searchExpression+="|";
+                }
 			}
 		}	
 	return searchExpression;
