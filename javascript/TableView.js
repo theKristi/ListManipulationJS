@@ -122,7 +122,7 @@ TableView.prototype.Search = function (element) {
     var filteredList = this.list.search(filter, properties,null,function(element){
         var stringElement=JSON.stringify(element)
         
-        for(var expression in expressions)
+        for(var expression=0; expression<expressions.length;expression++)
         {
             var match=expressions[expression].test(stringElement)
             if(!match)
@@ -390,7 +390,7 @@ TableView.prototype.BuildSearchExpressions=function(){
 	}
 	
 	if(stringExpression!='')
-	searchExpressions.push(new RegExp(stringExpression,"gi"))
+	searchExpressions.push(new RegExp(stringExpression,"i"))
 	});	
 	return searchExpressions;
 	

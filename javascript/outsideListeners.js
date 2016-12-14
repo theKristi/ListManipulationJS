@@ -38,12 +38,12 @@ $("#tester").on("Searched", function(e){
 
 
 
-	/*for(var record in searchResults){
+	for(var record in searchResults){
 		clearHighlights(searchResults[record].html);
 		if(target!=="")
 		highlightMatches(searchResults[record],target, attributes)
 	
-	}*/
+	}
 }
 	
 });
