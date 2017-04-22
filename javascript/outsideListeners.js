@@ -34,7 +34,7 @@ $("#tester").on("Searched", function(e){
 	var searchResults=e.detail.results;
 	
 	var highlightTarget=$("#mainSearch")[0].value;
-	if(highlightTarget&&highlightTarget!==""){
+	
 		var attributes=[];
 		document.querySelectorAll('[search-attribute-for="mainSearch"]').forEach(function(element){
 		attributes[element.cellIndex]=element.innerText.replace(/\s+/g, '');
@@ -47,7 +47,6 @@ $("#tester").on("Searched", function(e){
 		highlightMatches(searchResults[record],highlightTarget, attributes)
 	
 	}
-}
 	
 });
 function highlightMatches(record, target, propertiesSearched){
