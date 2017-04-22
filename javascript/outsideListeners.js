@@ -30,18 +30,21 @@ $("#tester").on("Select", function(e){
 	$(".selectLabel").text("("+SelectedRecords.length+")");
 });
 $("#tester").on("Searched", function(e){
-	var searchResults=e.detail.results;
-	var target=e.detail.target;
-	var attributes=e.detail.attributes;
-	var input=e.detail.input;
-	if(input.id==='mainSearch'){
 
+	var searchResults=e.detail.results;
+	
+	var highlightTarget=$("#mainSearch")[0].value;
+	if(highlightTarget&&highlightTarget!==""){
+		var attributes=[];
+		document.querySelectorAll('[search-attribute-for="mainSearch"]').forEach(function(element){
+		attributes[element.cellIndex]=element.innerText.replace(/\s+/g, '');
+	});
 
 
 	for(var record in searchResults){
-		clearHighlights(searchResults[record].html);
-		if(target!=="")
-		highlightMatches(searchResults[record],target, attributes)
+			clearHighlights(searchResults[record].html);	
+		if(highlightTarget!=="")
+		highlightMatches(searchResults[record],highlightTarget, attributes)
 	
 	}
 }
@@ -56,7 +59,7 @@ function highlightMatches(record, target, propertiesSearched){
 		var property=propertiesSearched[index];
 		//get matches in property column
 		var stringToCheck=record[property];
-		var result=[];
+		let result=[];
 		
 	
 		if(stringToCheck!==""){

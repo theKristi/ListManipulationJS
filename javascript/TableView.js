@@ -128,7 +128,7 @@ TableView.prototype.Search = function (element) {
             if(!match)
                 return false;
         }
-            console.log(stringElement)
+            //console.log(stringElement)
             return true
     })
 	  var searchEvent = document.createEvent("CustomEvent");
