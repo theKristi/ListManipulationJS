@@ -22,7 +22,7 @@ List.prototype.createFromHtml = function(tableSelected) {
     //pull off properties into array
     if (tableSelected && tableSelected.children.length > 0) {
 		var tbody=tableSelected.tBodies[0];
-        var properties = this.getHeadersFromHtml(tableSelected.tHead);
+        var properties = this.getAttributesFromHtml(tableSelected.tHead);
 
         //for each row in collection
         for (var i = 0; i < tbody.rows.length; i++) {
@@ -69,9 +69,9 @@ List.prototype.createFromHtml = function(tableSelected) {
 
 };
 
-List.prototype.sort = function (sublist, attrName, asc) {
-    attrName = attrName.trim();
-    attrName = attrName.replace(/\s+/g, '');
+List.prototype.sort = function (sublist, attributeName, asc) {
+    attributeName = attributeName.trim();
+    attributeName = attributeName.replace(/\s+/g, '');
     if (!sublist) {
         sublist = this.getList();
     }
@@ -79,12 +79,12 @@ List.prototype.sort = function (sublist, attrName, asc) {
         asc = true;
     if (sublist.length < 1)
         return sublist;
-    if (attrName == undefined || sublist[0][attrName] == undefined) {
+    if (attributeName == undefined || sublist[0][attributeName] == undefined) {
         throw 'Attribute to sort on does not exist, or is not defined by the object';
 
     }
 
-    sublist.sort(this.compare(attrName));
+    sublist.sort(this.compare(attributeName));
     if (!asc)
         sublist.reverse();
     return sublist;
@@ -210,17 +210,17 @@ List.prototype.getValidationErrors = function(list) {
     return errors;
 };
 
-List.prototype.emptyObject = function(headers) {
+List.prototype.emptyObject = function(attributes) {
     var object = {};
-    if (!headers)
-        headers = Object.getOwnPropertyNames(this.getList()[0]);
-    for (var entry in headers) {
-        object[headers[entry]] = "";
+    if (!attributes)
+		attributes	= Object.getOwnPropertyNames(this.getList()[0]);
+    for (var attribute in attributes) {
+        object[attributes[attribute]] = "";
     }
     return object;
 };
 
-List.prototype.getHeadersFromHtml = function(headerRow) {
+List.prototype.getAttributesFromHtml = function(headerRow) {
 if(headerRow.localName=="thead")
 	headerRow=headerRow.children[0].cells;
 
@@ -238,27 +238,27 @@ if(headerRow.localName=="thead")
     return headers;
 };
 
-List.prototype.compare = function(attrName) {
+List.prototype.compare = function(attributeName) {
     return function(a, b) {
 
-        var typea = typeof a[attrName];
-        var typeb = typeof b[attrName];
+        var typea = typeof a[attributeName];
+        var typeb = typeof b[attributeName];
         if (typea === typeb) {
             switch (typea) {
                 case "string":
                    
-                        return a[attrName].localeCompare(b[attrName]);
+                        return a[attributeName].localeCompare(b[attributeName]);
                  
             case "boolean":
-                if ((a[attrName] && b[attrName]) || (!a[attrName] && !b[attrName]))
+                if ((a[attributeName] && b[attributeName]) || (!a[attributeName] && !b[attributeName]))
                     return 0;
-                if (a[attrName] && !b[attrName])
+                if (a[attributeName] && !b[attributeName])
                     return 1;
                 else {
                     return -1;
                 }
             default:
-                return a[attrName] - b[attrName];
+                return a[attributeName] - b[attributeName];
             }
 
         }
